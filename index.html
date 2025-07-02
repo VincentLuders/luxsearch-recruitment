@@ -13,6 +13,26 @@
             box-sizing: border-box;
         }
 
+        /* Smooth scrolling for the entire page */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 120px; /* Account for fixed header */
+        }
+
+        /* Enhanced smooth scrolling with momentum */
+        body {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+            overflow-x: hidden;
+            overscroll-behavior: smooth; /* Prevent bounce on scroll boundaries */
+        }
+
+        /* Smooth scroll container */
+        .smooth-scroll {
+            scroll-behavior: smooth;
+            scroll-snap-type: y proximity;
+        }
+
         :root {
             /* Root variables for consistent theming */
         }
@@ -106,8 +126,8 @@
             width: 140px;
             height: 140px;
             background: linear-gradient(180deg, #2308eb, #9501fd);
-            top: 10%;
-            right: 50%;
+            top: 25%;
+            right: 75%;
             animation-name: morph6;
             animation-delay: -4.44s;
         }
@@ -451,15 +471,50 @@
             color: #000;
             text-decoration: none;
             white-space: nowrap;
+            position: relative;
+            transition: color 0.3s ease;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            color: #5e04ed; /* A color from the gradient */
+        }
+        
+        /* New animated underline for nav links */
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -8px; /* Position below the text */
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #0028f7 0%, #2308eb 20%, #3108cc 40%, #5e04ed 60%, #9501fd 80%, #b004ef 100%);
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(46, 8, 235, 0.3);
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth and fast */
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Current page indicator for Opportunities */
+        nav a[href="#career"]::after {
+            width: 100%; /* Always show full width for current page */
+        }
+
+        nav a[href="#career"]:hover {
+            color: #000; /* Keep original color on hover for current page */
+        }
+
+        /* Hide current page indicator when hovering other nav items */
+        nav:hover a[href="#career"]:not(:hover)::after {
+            width: 0; /* Animate out when other items are hovered */
         }
 
         /* Jobs Section */
         .jobs-section {
-            margin-top: 160px;
+            margin-top: 220px;
             padding: 40px 20px;
         }
 
@@ -491,8 +546,6 @@
             min-height: 280px;
             transition: all 0.3s ease;
         }
-
-
 
         .job-title {
             font-size: 1.5rem;
@@ -602,8 +655,6 @@
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
 
-
-
         @media (max-width: 768px) {
             .jobs-container {
                 grid-template-columns: 1fr;
@@ -641,8 +692,8 @@
             </div>
         </div>
         <nav>
-            <a href="#about">About Us</a>
-            <a href="#career">New Career</a>
+            <a href="#about">About Us</a>  
+            <a href="#career">Opportunities</a>
             <a href="#hire">Hire Talent</a>
         </nav>
     </header>
